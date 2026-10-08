@@ -1,4 +1,5 @@
 import http from 'node:http';
+import {VERSION} from './src/version.js';
 import {createReadStream} from 'node:fs';
 import {readFile,stat} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
@@ -47,6 +48,6 @@ const server=http.createServer(async(req,res)=>{
     }else{res.writeHead(200,{...headers,'Content-Length':info.size});if(req.method==='HEAD')res.end();else createReadStream(file).pipe(res);}
   }catch{res.writeHead(404).end('Not found');}
 });
-server.listen(Number(process.env.PORT||4318),'127.0.0.1',()=>console.log('AI伴听 V0.2 → http://127.0.0.1:'+server.address().port));
+server.listen(Number(process.env.PORT||4318),'127.0.0.1',()=>console.log('AI伴听 '+VERSION+' → http://127.0.0.1:'+server.address().port));
 server.on('close',()=>asr.close());
 for(const signal of ['SIGINT','SIGTERM'])process.on(signal,()=>{asr.close();server.close(()=>process.exit(0));});

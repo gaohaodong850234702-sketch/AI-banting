@@ -1,6 +1,8 @@
-# AI伴听 V0.2 全真模拟版
+# AI伴听 1.0.0
 
-独立于 `../AI伴听`（V0.1），独立端口、数据空间与模型配置。V0.1 不被覆盖。
+听一段声音，留下自己的想法，再通过真实记录回看与关联。
+
+本地只保留 `AI伴听` 项目目录，历史版本通过 `v0.1.1`、`v0.2.0`、`v1.0.0` Git 标签回滚。版本变化见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 启动
 
@@ -8,12 +10,12 @@
 npm start
 ```
 
-访问 http://127.0.0.1:4318/#journey 。首次在「设置与数据」填写大模型 API，启用后测试连接。
+访问 http://127.0.0.1:4318/#journey 。首次可跟随声波引导完成播放、记录与找回；「使用帮助」可重新打开引导。在「设置与数据」填写大模型 API，启用后测试连接。
 
-- 浏览器数据：`banting-demo-v2`；录音：IndexedDB `banting-media-v2`。
+- 浏览器数据沿用 `banting-demo-v2`；录音沿用 IndexedDB `banting-media-v2`，升级版本不重置已有记录。
 - API Key：`.local/model-config.json`，文件权限 0600，不进入前端或导出数据。
 - 播客原音频：`.local/podcasts/`，仅本机体验，不包含在静态构建中。
-- Whisper：`.venv-asr/` + `.local/asr-model/`，此副本独立安装。
+- Whisper：`.venv-asr/` + `.local/asr-model/`，本机运行环境，不进入 Git。
 
 ## 真实体验
 

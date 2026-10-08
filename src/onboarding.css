@@ -1,0 +1,48 @@
+/* Warm glass ribbons echo the GPT Image direction without a static-image animation. */
+.guide-visual{height:94px;position:relative;margin:-10px -12px -2px;pointer-events:none}
+.guide-visual canvas{display:block;width:100%;height:100%}
+#banting-guide{position:fixed;right:24px;bottom:calc(var(--player) + 18px);width:330px;max-width:calc(100vw - 24px);padding:10px 22px 22px;background:linear-gradient(135deg,#fffefaF5,#f6f6edf7);border:1px solid #dbdfd1;border-radius:20px;box-shadow:0 12px 45px #35482b16,0 2px 8px #35482b08;z-index:35;backdrop-filter:blur(16px);color:var(--ink);height:max-content}
+#banting-guide[hidden],.guide-launcher[hidden]{display:none!important}
+#banting-guide h3{font-size:17px;line-height:1.6;font-weight:600;margin:6px 0}
+#banting-guide p{font-size:13px;line-height:1.8;color:#626b5a;margin:0}
+.guide-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.guide-eyebrow{font-size:11px;letter-spacing:1px;color:#727c66}
+.guide-close{width:32px;height:32px;border-radius:50%;font-size:22px;color:#707a65;display:grid;place-items:center;margin-right:-9px}
+.guide-close:hover{background:#e9ecdf}
+.guide-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:17px}
+.guide-actions .button{font-size:12px;padding:11px 14px}
+.guide-actions .text-button{font-size:12px;min-height:44px}
+.guide-target{outline:2px solid #d7684290;outline-offset:5px;box-shadow:0 0 0 8px #d7684210!important}
+.guide-launcher{position:fixed;bottom:calc(var(--player) + 14px);right:22px;z-index:30;display:flex;align-items:center;gap:2px;padding:4px 13px 4px 3px;min-height:44px;background:#fffefaed;border:1px solid #dce0d1;border-radius:30px;box-shadow:0 5px 22px #35482b0c;color:#59664e;font-size:11px;backdrop-filter:blur(12px)}
+.guide-launcher canvas{display:block;width:76px;height:34px}
+#guide-welcome{width:460px;max-width:calc(100vw - 28px);padding:28px 42px 24px;border:1px solid #e0e1d5;border-radius:24px;background:radial-gradient(ellipse at 50% 15%,#f7e9d43d,transparent 65%),#fffefa;text-align:center;box-shadow:0 30px 100px #2b302b20}
+#guide-welcome::backdrop{background:#29312338;backdrop-filter:blur(4px)}
+#guide-welcome .welcome-wave{margin:-12px -28px 2px}
+#guide-welcome .guide-visual{height:136px;margin:0}
+#guide-welcome h2{font-size:29px;letter-spacing:0;margin:13px 0}
+#guide-welcome p{font-size:14px;color:#727969;line-height:1.95}
+.welcome-path{display:flex;align-items:center;justify-content:center;gap:13px;margin:27px 0;font-size:12px;color:#526247}
+.welcome-path i{font-style:normal;color:#afb79f}
+.welcome-skip{display:block;min-height:44px;margin:10px auto 0;font-size:12px}
+#banting-guide.guide-embedded{position:relative;inset:auto!important;width:100%;max-width:100%;padding:0 0 16px;margin:0 0 20px;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;backdrop-filter:none;background:transparent;z-index:auto}
+#banting-guide.guide-embedded .guide-visual{height:74px;margin:0 -6px}
+#banting-guide.guide-recording .guide-visual{height:122px}
+#banting-guide.guide-recording .guide-content{display:none}
+dialog:has(.guide-recording) .recording-orb,dialog:has(.guide-recording) .record-wave{display:none}
+#banting-guide .guide-notice{color:#9c4e32;margin-top:9px}
+@media(max-width:760px){
+ #banting-guide.guide-mobile{left:12px!important;right:12px;top:auto!important;bottom:calc(var(--player) + 10px);width:auto;padding:0 18px 15px;border-radius:17px}
+ #banting-guide.guide-mobile .guide-visual{height:55px;margin:-3px 20px -4px}
+ #banting-guide h3{font-size:15px;margin:3px 0}
+ #banting-guide p{font-size:12px}
+ .guide-actions{margin-top:10px;gap:12px}
+ .guide-close{min-width:44px;min-height:44px;margin-top:-6px;margin-bottom:-6px}
+ .guide-launcher{right:12px;bottom:calc(var(--player) + 10px)}
+ #guide-welcome{padding:20px 25px}
+ #guide-welcome h2{font-size:25px}
+ #guide-welcome .guide-visual{height:115px}
+ #banting-guide.guide-embedded{padding-bottom:12px;margin-bottom:15px}
+ #banting-guide.guide-embedded .guide-visual{height:48px}
+ #banting-guide.guide-recording .guide-visual{height:100px}
+}
+@media(prefers-reduced-motion:reduce){.guide-target{box-shadow:none!important}#guide-welcome::backdrop{backdrop-filter:none}}
