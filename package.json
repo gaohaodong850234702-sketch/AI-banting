@@ -1,0 +1,18 @@
+{
+  "name": "ai-banting-demo",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/app.js && node --check src/asr.js && node --check src/core.js && node --check backend/asr-service.mjs && node --check backend/asr-http.mjs && node --check server.mjs",
+    "build": "node scripts/build.mjs",
+    "setup:asr": "uv venv --python 3.13 .venv-asr && uv pip install --python .venv-asr/bin/python -r backend/requirements.txt && .venv-asr/bin/python scripts/setup-asr.py",
+    "test:asr": "node scripts/verify-asr.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
