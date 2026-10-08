@@ -1,0 +1,182 @@
+[
+  {
+    "id": "68008da7cdd692da15e2b2f1",
+    "title": "02.对话腾讯雇主品牌负责人：双非小镇青年在鹅厂的15年",
+    "author": "以鹅传鹅FM",
+    "kind": "播客",
+    "theme": "orange",
+    "duration": 4530,
+    "demo": false,
+    "remote": true,
+    "src": "/api/media/68008da7cdd692da15e2b2f1",
+    "sourceUrl": "https://www.xiaoyuzhoufm.com/episode/68008da7cdd692da15e2b2f1",
+    "mediaUrl": "https://media.xyzcdn.net/67594c5c6734a5ad7a9169a4/lhpHb6fi0bZRvena3tqewrly7k4Y.m4a",
+    "publishedAt": "2025-04-17T14:08:21.737Z",
+    "imageUrl": "https://image.xyzcdn.net/FntPyqFSx0lzCWTOTRaYP5wc8qdm.jpg",
+    "subtitle": "先试一次，再认识自己",
+    "chapterKind": "publisher-notes",
+    "chapters": [],
+    "listeningPoints": [
+      {
+        "start": 776,
+        "text": "加入鹅厂的核心经验是早实习、多试错"
+      },
+      {
+        "start": 1043,
+        "text": "实习转正的关键原因是什么？"
+      },
+      {
+        "start": 2514,
+        "text": "简历筛选的逻辑是反复打捞，想被看到就要勤刷新"
+      },
+      {
+        "start": 3374,
+        "text": "在当下的环境中，该如何准备面试？"
+      }
+    ],
+    "recommendedStart": 776,
+    "verifiedAt": "2026-10-03",
+    "bytes": 109515163,
+    "sha256": "3dd3c296881e1610f8b4e6748e9bc940b5e3bdfb9fb4e8ee1e4f83c33c429abd"
+  },
+  {
+    "id": "69c510ee852cf1b8bb01bb7f",
+    "title": "07. 90%的人都做不好自我介绍？18年腾讯HR给你的面试建议",
+    "author": "鹅厂wò谈会",
+    "kind": "播客",
+    "theme": "green",
+    "duration": 3998,
+    "demo": false,
+    "remote": true,
+    "src": "/api/media/69c510ee852cf1b8bb01bb7f",
+    "sourceUrl": "https://www.xiaoyuzhoufm.com/episode/69c510ee852cf1b8bb01bb7f",
+    "mediaUrl": "https://media.xyzcdn.net/68930e9232f99d376893d00c/luyOybd21wr_jV-Ii9gOH0jMDix0.m4a",
+    "publishedAt": "2026-03-26T11:03:51.569Z",
+    "imageUrl": "https://image.xyzcdn.net/FqNI_rO1mdS1WfAzC1QLqRrjjTjF.jpg",
+    "subtitle": "把经历讲清楚",
+    "chapterKind": "publisher-notes",
+    "chapters": [],
+    "listeningPoints": [
+      {
+        "start": 387,
+        "text": "面试不是「被选择」——如何在心态上实现双向平等？"
+      },
+      {
+        "start": 560,
+        "text": "自我介绍的目的只有一个：让面试官对你感兴趣"
+      },
+      {
+        "start": 608,
+        "text": "现场示范：什么叫「在面试官脑子里种下一个钩子」？"
+      }
+    ],
+    "recommendedStart": 387,
+    "verifiedAt": "2026-10-03",
+    "bytes": 64663094,
+    "sha256": "60b693c9eb7a16091a2fd7c4bd9b1cfb97b934b3d376d6d31148e738fd0105df"
+  },
+  {
+    "id": "6a9441c7f03e74ee6b023666",
+    "title": "12. 求职别慌！腾讯面试官的秋招建议与必胜心法",
+    "author": "鹅厂wò谈会",
+    "kind": "播客",
+    "theme": "purple",
+    "duration": 4491,
+    "demo": false,
+    "remote": true,
+    "src": "/api/media/6a9441c7f03e74ee6b023666",
+    "sourceUrl": "https://www.xiaoyuzhoufm.com/episode/6a9441c7f03e74ee6b023666",
+    "mediaUrl": "https://media.xyzcdn.net/68930e9232f99d376893d00c/lkKf3l-oD8890ezQ72J50rbPNx6M.m4a",
+    "publishedAt": "2026-08-30T23:00:00.000Z",
+    "imageUrl": "https://image.xyzcdn.net/FqNI_rO1mdS1WfAzC1QLqRrjjTjF.jpg",
+    "subtitle": "从焦虑走到准备",
+    "chapterKind": "publisher-notes",
+    "chapters": [],
+    "listeningPoints": [
+      {
+        "start": 430,
+        "text": "是怎么做到在大一就很明确未来方向的？"
+      },
+      {
+        "start": 2561,
+        "text": "「运营不如策划」的鄙视链其实是一种误区"
+      },
+      {
+        "start": 2704,
+        "text": "手把手经验：如何从 0 开始准备求职？"
+      }
+    ],
+    "recommendedStart": 430,
+    "verifiedAt": "2026-10-03",
+    "bytes": 108577911,
+    "sha256": "07408aa15fddf4f59c5e0bd00dc3ca550d4d6b59a908ed6ce2cbb01f62cd04b3"
+  },
+  {
+    "id": "6a851ca85aeb2a5712e9105c",
+    "title": "11. 鹅厂HR坦白局：AI时代，这一届校招生该怎么准备求职？",
+    "author": "鹅厂wò谈会",
+    "kind": "播客",
+    "theme": "green",
+    "duration": 3455,
+    "demo": false,
+    "remote": true,
+    "src": "/api/media/6a851ca85aeb2a5712e9105c",
+    "sourceUrl": "https://www.xiaoyuzhoufm.com/episode/6a851ca85aeb2a5712e9105c",
+    "mediaUrl": "https://media.xyzcdn.net/68930e9232f99d376893d00c/liOR7o4DE1fUGZI5r_yIWEdm_RLl.m4a",
+    "publishedAt": "2026-08-19T03:11:54.634Z",
+    "imageUrl": "https://image.xyzcdn.net/FqNI_rO1mdS1WfAzC1QLqRrjjTjF.jpg",
+    "subtitle": "AI时代，我能拿出什么",
+    "chapterKind": "publisher-notes",
+    "chapters": [],
+    "listeningPoints": [
+      {
+        "start": 2018,
+        "text": "求职时，讲过往经历的重点从来不在多"
+      },
+      {
+        "start": 2345,
+        "text": "简历系统新增的 AI 应用技能字段，怎么填比较好？"
+      },
+      {
+        "start": 2573,
+        "text": "AI 项目经验不够怎么办？一个今天就能动手的建议"
+      }
+    ],
+    "recommendedStart": 2018,
+    "verifiedAt": "2026-10-03",
+    "bytes": 83531296,
+    "sha256": "04678a2257fabfe89fbf2287b9107b04e7d8327c1621b274dcb778df16fadd7c"
+  },
+  {
+    "id": "6ab1093293d5eb3bdc78c5b9",
+    "title": "13. 鹅厂新人向上沟通第一课：不敢麻烦Leader，可能才是最大的麻烦！",
+    "author": "鹅厂wò谈会",
+    "kind": "播客",
+    "theme": "orange",
+    "duration": 3393,
+    "demo": false,
+    "remote": true,
+    "src": "/api/media/6ab1093293d5eb3bdc78c5b9",
+    "sourceUrl": "https://www.xiaoyuzhoufm.com/episode/6ab1093293d5eb3bdc78c5b9",
+    "mediaUrl": "https://media.xyzcdn.net/68930e9232f99d376893d00c/ltqcDX9JysaREMSCZSEftBXtKqBZ.m4a",
+    "publishedAt": "2026-09-21T23:00:00.000Z",
+    "imageUrl": "https://image.xyzcdn.net/FqNI_rO1mdS1WfAzC1QLqRrjjTjF.jpg",
+    "subtitle": "实习中的沟通与反馈",
+    "chapterKind": "publisher-notes",
+    "chapters": [],
+    "listeningPoints": [
+      {
+        "start": 1609,
+        "text": "想约导师聊聊，但导师太忙怎么办？"
+      },
+      {
+        "start": 1744,
+        "text": "请记住，时刻同步你的困难！"
+      }
+    ],
+    "recommendedStart": 1609,
+    "verifiedAt": "2026-10-03",
+    "bytes": 82031539,
+    "sha256": "16de960df493ac24ddf852dab3fcb9729562adc8083100d2433735dd940a767a"
+  }
+]

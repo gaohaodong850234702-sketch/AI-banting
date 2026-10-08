@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,statSync} from 'node:fs';
+import {getContext,createThought,interpret,summaryMarkdown,escapeHTML,formatTime} from '../src/core.js';
+const catalog=JSON.parse(readFileSync(new URL('../src/catalog.json',import.meta.url),'utf8'));
+const audio={id:'a',title:'测试',duration:120,chapters:[{start:0,end:30,text:'第一段'},{start:30,end:60,text:'第二段'},{start:60,end:90,text:'第三段'}]};
+test('前90秒窗口截断到零，不纳入时间范围外的段落',()=>{assert.deepEqual(getContext(audio,10),{start:0,end:10,text:'第一段',source:'script'});assert.deepEqual(getContext(audio,80),{start:0,end:80,text:'第一段\n第二段\n第三段',source:'script'});assert.equal(getContext(audio,0).text,'');});
+test('未转写的导入音频仍保留真实时间范围',()=>{assert.deepEqual(getContext({duration:100},75),{start:0,end:75,text:'',source:'audio-only'});});
+test('修订与重新整理不改最初原话或上下文',()=>{const t=createThought({audio,position:50,text:'我以前总想先确定答案。',sessionId:'s',id:'t'});const raw=t.rawText,context=structuredClone(t.context);t.text='我可以先试试吗？';t.interpretation=interpret(t.text,t.context);assert.equal(t.rawText,raw);assert.deepEqual(t.context,context);assert.equal(t.interpretation.relation,'疑问');assert.equal(t.interpretation.method,'rule');});
+test('原始语音记录允许暂时没有转写，不能编造原话',()=>{const t=createThought({audio,position:40,voiceId:'recording',sessionId:'s',id:'t'});assert.equal(t.rawText,'');assert.equal(t.voiceId,'recording');assert.equal(t.interpretation,null);});
+test('回顾按音频时间排序，并保留用户表达',()=>{const one=createThought({audio,position:20,text:'早一点',id:'a'}),two=createThought({audio,position:60,text:'晚一点',id:'b'});const md=summaryMarkdown(audio,[two,one]);assert.ok(md.indexOf('早一点')<md.indexOf('晚一点'));assert.match(md,/按原话与时间顺序整理/);});
+test('用户输入转义，避免 HTML 注入',()=>{assert.equal(escapeHTML('<script>"hi"</script>'),'&lt;script&gt;&quot;hi&quot;&lt;/script&gt;');assert.equal(formatTime(125),'02:05');assert.equal(formatTime(NaN),'00:00');});
+test('五期真实播客都有可溯源的媒体与有效推荐时间，不伪造文稿',()=>{assert.equal(catalog.length,5);for(const a of catalog){assert.ok(a.duration>1800);assert.equal(a.demo,false);assert.equal(a.remote,true);assert.ok(a.sourceUrl.startsWith('https://www.xiaoyuzhoufm.com/episode/'));assert.equal(a.chapters.length,0);assert.ok(a.listeningPoints.length>=2);for(const p of a.listeningPoints)assert.ok(p.start>=0&&p.start<a.duration);}});

@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+const base=process.env.BANTING_TEST_URL||'http://127.0.0.1:4318';
+const status=await fetch(base+'/api/asr/status').then(r=>r.json());
+assert.equal(status.ready,true,'本机 ASR 尚未就绪，请先运行 npm run dev');
+const fixture=await readFile(new URL('../tests/fixtures/asr-zh.wav',import.meta.url));
+const started=performance.now();
+const response=await fetch(base+'/api/asr/transcribe',{method:'POST',headers:{'Content-Type':'audio/wav'},body:fixture});
+const result=await response.json();
+assert.equal(response.status,200,JSON.stringify(result));
+assert.equal(result.provider,'local-whisper');
+assert.ok(result.text.includes('确定方向'),result.text);
+assert.ok(result.text.includes('小项目'),result.text);
+assert.ok(result.text.includes('体验'),result.text);
+assert.equal(result.noSpeech,false);
+console.log(JSON.stringify({verified:true,text:result.text,elapsedMs:result.elapsedMs,requestMs:Math.round(performance.now()-started),model:result.model},null,2));
