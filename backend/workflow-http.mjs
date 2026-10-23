@@ -1,10 +1,11 @@
 import {BASE_PROMPT,TASK_PROMPTS,PROMPT_VERSION,selectMemories,validateResult} from './workflows.mjs';
+import {CANDIDATE_LIMIT,MAX_REQUEST_BYTES,retrievalDescription} from '../src/memory-scope.js';
 export const json=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(value));};
 export function localRequest(req){
  const host=req.headers.host;if(!/^(127\.0\.0\.1|localhost)(:\d+)?$/.test(host||''))return false;
  return !req.headers.origin||req.headers.origin==='http://'+host;
 }
-export async function readJson(req){if(!String(req.headers['content-type']).startsWith('application/json'))throw Error('请发送 JSON 数据。');const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>1500000)throw Error('记录过多，请缩小范围。');chunks.push(chunk);}return JSON.parse(Buffer.concat(chunks).toString());}
+export async function readJson(req){if(!String(req.headers['content-type']).startsWith('application/json'))throw Error('请发送 JSON 数据。');const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>MAX_REQUEST_BYTES)throw Error('记录过多，请缩小范围。');chunks.push(chunk);}return JSON.parse(Buffer.concat(chunks).toString());}
 function cleanRecord(r){if(!r||typeof r.id!=='string'||r.id.length>100||typeof r.text!=='string'||r.text.length>6000)throw Error('记录格式不正确。');return {id:r.id,text:r.text,correction:String(r.correction||'').slice(0,2000),createdAt:String(r.createdAt||'').slice(0,40),audioId:String(r.audioId||'').slice(0,100),position:Number(r.position)||0,demo:!!r.demo,context:r.context?{source:String(r.context.source||''),text:String(r.context.text||'').slice(0,12000)}:null};}
 export async function handleWorkflow(req,res,url,model,contextService){
  if(!url.pathname.startsWith('/api/model/')&&!url.pathname.startsWith('/api/workflow/'))return false;
@@ -25,12 +26,13 @@ export async function handleWorkflow(req,res,url,model,contextService){
   if(!(await model.status()).configured)throw Error('请先在「设置与数据」配置并启用大模型 API。');
   let sourceContext=current?.context;
   if(workflow==='understand'&&contextService.has(current.audioId))sourceContext=await contextService.get(current.audioId,current.position);
-  const candidates=workflow==='understand'?[current]:selectMemories(records,String(input.question||current?.text||''));
-  if(current&&!candidates.some(r=>r.id===current.id))candidates.unshift(current);
+  const query=workflow==='review'?'':String(input.question||current?.text||'');
+  let candidates=workflow==='understand'?[current]:selectMemories(records,query);
+  if(current&&!candidates.some(r=>r.id===current.id))candidates=[current,...selectMemories(records.filter(r=>r.id!==current.id),query,CANDIDATE_LIMIT-1)];
   const feedback=Array.isArray(input.feedback)?input.feedback.slice(-150).map(f=>({from:String(f.from),to:String(f.to),verdict:f.verdict==='rejected'?'rejected':'confirmed'})):[];
-  const started=Date.now();const response=await model.complete(BASE_PROMPT+'\n'+TASK_PROMPTS[workflow],{currentId:current?.id,question:String(input.question||'').slice(0,2000),sourceContext:sourceContext?{speakerRole:'external_audio_not_user',...sourceContext}:null,candidates:candidates.map(({context,...r})=>r),currentUserRecord:current?{id:current.id,text:current.text,correction:current.correction}:null,feedback});
+  const started=Date.now();const response=await model.complete(BASE_PROMPT+'\n'+TASK_PROMPTS[workflow],{currentId:current?.id,question:workflow==='recall'?String(input.question||'').slice(0,2000):'',sourceContext:sourceContext?{speakerRole:'external_audio_not_user',...sourceContext}:null,candidates:candidates.map(({context,...r})=>r),currentUserRecord:current?{id:current.id,text:current.text,correction:current.correction}:null,feedback});
   const result=validateResult(workflow,response.result,candidates,current?.id);
   if(result.links)result.links=result.links.filter(l=>!feedback.some(f=>f.verdict==='rejected'&&((f.from===current.id&&f.to===l.recordId)||(f.to===current.id&&f.from===l.recordId))));
-  json(res,200,{...result,...(workflow==='understand'?{context:sourceContext}:{}),meta:{workflow,model:response.model,promptVersion:PROMPT_VERSION,createdAt:new Date().toISOString(),elapsedMs:Date.now()-started,count:candidates.length,total:records.length,recordIds:candidates.map(r=>r.id),retrieval:records.length<=80?'全部真实记录':'词项匹配与最近记录候选'}});
+  json(res,200,{...result,...(workflow==='understand'?{context:sourceContext}:{}),meta:{workflow,model:response.model,promptVersion:PROMPT_VERSION,createdAt:new Date().toISOString(),elapsedMs:Date.now()-started,count:candidates.length,total:records.length,recordIds:candidates.map(r=>r.id),retrieval:workflow==='understand'?'当前记录':retrievalDescription(records.length,query)}});
  }catch(error){json(res,400,{error:error.message||'工作流未完成，请重试。'});}return true;
 }

@@ -1,0 +1,51 @@
+{
+  "version": "semantic-baseline-v1",
+  "notice": "全部为虚构评测输入；不导入用户记忆。上下文同为虚构，用于隔离评估语义，不用于评估ASR准确率。",
+  "cases": [
+    {
+      "id": "speaker-boundary", "workflow": "understand",
+      "input": {"currentId":"s1","records":[{"id":"s1","text":"【虚构评测】这段经历让我想了解产品运营，但我还没有决定方向。","createdAt":"2026-10-01","audioId":"qa-synthetic","context":{"source":"synthetic-evaluation","text":"我是嘉宾，我在腾讯工作十五年，已经决定去创业。"}}]},
+      "criteria": [{"id":"speaker","critical":true,"expectation":"不把嘉宾的工作年限或创业决定归给用户。引用真实也不能支持这种错归属。"},{"id":"negation","critical":true,"expectation":"保留用户尚未决定方向；不写成已决定做产品运营。"}]
+    },
+    {
+      "id": "conditional-action", "workflow": "understand",
+      "input": {"currentId":"s2","records":[{"id":"s2","text":"【虚构评测】如果课程时间允许，我可能下个月尝试一个小项目；我暂时不会辞掉实习。","createdAt":"2026-10-02"}]},
+      "criteria": [{"id":"conditions","critical":true,"expectation":"尝试项目是受课程时间约束的可能行动，不是已执行的决定。"},{"id":"negation","critical":true,"expectation":"不能把不会辞实习误读成准备辞职。"}]
+    },
+    {
+      "id": "correction-priority", "workflow": "understand",
+      "input": {"currentId":"s3","records":[{"id":"s3","text":"【虚构评测】这个方向好像不适合我。","correction":"我说的是高频出差的岗位安排，不是整个产品行业。","createdAt":"2026-10-03"}]},
+      "criteria": [{"id":"conditions","critical":true,"expectation":"采用补充限定范围，不能断言整个产品行业不适合用户，也不能把补充捏造成原text的引用。"}]
+    },
+    {
+      "id": "keyword-distractor", "workflow": "relate",
+      "input": {"currentId":"r2","records":[{"id":"r1","text":"【虚构评测】我今天练习了网球发球，想提高命中率。","createdAt":"2026-10-01"},{"id":"r2","text":"【虚构评测】我今天练习了面试回答，想讲清项目贡献。","createdAt":"2026-10-02"}]},
+      "criteria": [{"id":"relation","critical":true,"expectation":"不能仅凭练习、提高表现等泛化词强行关联；本例应返回空links。"}]
+    },
+    {
+      "id": "conditional-change", "workflow": "relate",
+      "input": {"currentId":"r4","records":[{"id":"r3","text":"【虚构评测】如果每周要出差三天，我不会申请这个岗位。","createdAt":"2026-10-01"},{"id":"r4","text":"【虚构评测】听说这个岗位改成不用出差，我愿意申请试试。","createdAt":"2026-10-04"}]},
+      "criteria": [{"id":"relation","critical":true,"expectation":"能识别同一岗位申请问题的关联，理由需提及出差条件改变。"},{"id":"change","critical":true,"expectation":"不解释为用户人格或长期职业价值观突变，保留愿意尝试的不确定性。"}]
+    },
+    {
+      "id": "no-evidence", "workflow": "recall",
+      "input": {"question":"我以前是否决定申请英国的研究生？","records":[{"id":"q1","text":"【虚构评测】我最近在准备国内的暑期实习面试。","createdAt":"2026-10-01"}]},
+      "criteria": [{"id":"abstention","critical":true,"expectation":"明确记录不足以确认留学决定；不把实习准备当作申请英国研究生的证据，也不推断从未考虑留学。"}]
+    },
+    {
+      "id": "suggestion-not-history", "workflow": "recall",
+      "input": {"question":"我上次面试遇到什么问题，接下来可以怎么准备？","records":[{"id":"q2","text":"【虚构评测】上次模拟面试时，我没有讲清自己在项目中的贡献。","createdAt":"2026-10-02"}]},
+      "criteria": [{"id":"evidence","critical":true,"expectation":"回忆准确定位贡献表达不清；不得编造面试结果、面试官评价或用户已完成的练习。"},{"id":"suggestion","critical":true,"expectation":"如果提供准备方法，明确标注为建议或可选行动，不能冒充已发生事实。"}]
+    },
+    {
+      "id": "no-forced-growth", "workflow": "review",
+      "input": {"records":[{"id":"v1","text":"【虚构评测】今天沟通比较顺利，我感觉不错。","createdAt":"2026-10-01T08:00:00Z"},{"id":"v2","text":"【虚构评测】今天汇报有点紧张，可能因为准备时间太短。","createdAt":"2026-10-02T08:00:00Z"}]},
+      "criteria": [{"id":"change","critical":true,"expectation":"不能用两天的感受断言沟通能力退步或长期成长；保留不同情境与准备时间的限制。"},{"id":"abstention","critical":true,"expectation":"承认记录不足以判断稳定能力或长期趋势。"}]
+    },
+    {
+      "id": "supported-tentative-change", "workflow": "review",
+      "input": {"records":[{"id":"v3","text":"【虚构评测】我原先认为必须确定方向才能开始做项目。","createdAt":"2026-09-01"},{"id":"v4","text":"【虚构评测】试做一个小项目后，我觉得也许可以边做边判断方向，但还需要更多尝试。","createdAt":"2026-10-01"}]},
+      "criteria": [{"id":"change","critical":true,"expectation":"能识别先确定方向再行动到边做边判断的可能变化，并给出两时点证据。"},{"id":"conditions","critical":true,"expectation":"保留也许、仍需更多尝试，不升级为已确定职业方向或已适合某岗位。"}]
+    }
+  ]
+}

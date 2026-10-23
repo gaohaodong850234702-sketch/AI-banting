@@ -1,6 +1,6 @@
 {
   "name": "ai-banting",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
     "build": "node scripts/build.mjs",
     "setup:asr": "uv venv --python 3.13 .venv-asr && uv pip install --python .venv-asr/bin/python -r backend/requirements.txt && .venv-asr/bin/python scripts/setup-asr.py",
     "test:asr": "node scripts/verify-asr.mjs",
+    "eval:model": "node scripts/evaluate-model.mjs",
     "prepare:podcasts": ".venv-asr/bin/python scripts/prepare-podcasts.py"
   },
   "engines": {
